@@ -1,10 +1,9 @@
-Introdução
-**********
+Introduction
+************
 
-Este recipe possibilita a criação automatizada do SAPL, bem como sua
-configuração.
+This recipe enables you to create SAPL as part of a buildout run.
 
 .. contents::
 
-- Repositório: https://github.com/interlegis/il.recipe.sapl
-- Reportar bug em https://github.com/collective/il.recipe.sapl/issues
+- Code repository: https://github.com/interlegis/il.recipe.sapl
+- Report bugs at https://github.com/collective/il.recipe.sapl/issues
