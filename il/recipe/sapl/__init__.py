@@ -5,15 +5,7 @@ import os
 import subprocess
 import pkg_resources
 
-TRUISMS = [
-    'yes',
-    'y',
-    'on',
-    'true',
-    'sure',
-    'ok',
-    '1',
-    ]
+TRUISMS = ['yes', 'y', 'on', 'true', 'sure', 'ok', '1']
 
 
 class Recipe(object):
@@ -32,7 +24,7 @@ class Recipe(object):
 
         # all the options that will be passed on to the 'run' script
         self.sapl_id = options.get('sapl-id', 'sapl')
-        self.container_path = options.get('container-path', '/')
+        self.container_path = options.get('container-path', '/sapl/sapl_documentos')
         self.admin_user = options.get('admin-user', 'admin')
         self.mysql_user = options.get('mysql-user', 'root')
         self.mysql_pass = options.get('mysql-pass', 'root')
@@ -57,11 +49,10 @@ class Recipe(object):
                 __name__, 'sapl.py')
             # run the script
             cmd = ("%(bin-directory)s/%(instance-script)s run "
-               "%(script)s %(args)s") % options
+                   "%(script)s %(args)s") % options
 
             subprocess.call(cmd.split())
         return location
-
 
     def update(self):
         """Updater"""
@@ -79,6 +70,5 @@ class Recipe(object):
         args.append("--mysql-host=%s" % self.mysql_host)
         args.append("--mysql-db=%s" % self.mysql_db)
         args.append("--add-mountpoint=%s" % self.add_mountpoint)
-
 
         return " ".join(args)

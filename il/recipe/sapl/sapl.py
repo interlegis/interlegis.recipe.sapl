@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import logging
-import os
 from datetime import datetime
 
 import MySQLdb
@@ -24,7 +23,7 @@ logger = logging.getLogger('il.recipe.sapl')
 def create(container, sapl_id):
     oids = container.objectIds()
     if sapl_id in oids:
-        logger.warning("Um SAPL ja existe e nao sera substituido")
+        logger.warning("SAPL already exists and will not be replaced")
         sapl = getattr(container, sapl_id)
         created = False
         return (sapl, created)
@@ -33,7 +32,7 @@ def create(container, sapl_id):
         factory = container.manage_addProduct['il.sapl']
         factory.manage_addSAPL(sapl_id, title='SAPL-Sistema de Apoio ao Processo Legislativo', database="MySQL")
     transaction.commit()
-    logger.info("SAPL Adicionado")
+    logger.info("Added SAPL")
     sapl = getattr(container, sapl_id)
     setSite(sapl)
     return (sapl, created)
@@ -66,27 +65,31 @@ def main(app, parser):
 
     app = makerequest.makerequest(app)
     try:
-        db = MySQLdb.connect(host=mysql_host,user=mysql_user, passwd=mysql_pass)
+        db = MySQLdb.connect(host=mysql_host, user=mysql_user, passwd=mysql_pass)
     except:
-        msg = "Nao foi possivel conectar ao MySQL"
+        msg = "The MySQL is down"
         raise zc.buildout.UserError(msg)
     if db:
         cursor = db.cursor()
 
         sapl_create = 'CREATE SCHEMA IF NOT EXISTS %s DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;' % mysql_db
+
         try:
             db.select_db(mysql_db)
         except:
             cursor.execute(sapl_create)
             db.select_db(mysql_db)
+        logger.info("Database created")
 
-        #cria o usuario SAPL
+        # create SAPL user
         sapl_dbuser = "GRANT ALL PRIVILEGES ON interlegis.* TO 'sapl'@'localhost' IDENTIFIED BY 'sapl';"
         cursor.execute(sapl_dbuser)
+        logger.info("MySQL user created")
 
         sapl_sql = pkg_resources.resource_filename('il.sapl', 'instalacao/sapl.sql')
         process = Popen("mysql %s -u%s -p%s -h %s" % (mysql_db, mysql_user, mysql_pass, mysql_host), stdout=PIPE, stdin=PIPE, shell=True)
-        output = process.communicate('source ' + sapl_sql)[0]
+        process.communicate('source ' + sapl_sql)[0]
+        logger.info("Tables created")
 
     # set up security manager
     acl_users = app.acl_users
@@ -108,7 +111,8 @@ def main(app, parser):
         if add_mountpoint:
             try:
                 app.manage_addProduct['ZODBMountPoint'].manage_addMounts(
-                paths=[container_path], create_mount_points=1)
+                    paths=[container_path], create_mount_points=1
+                )
             except Exception as e:
                 msg = 'An error ocurred while trying to add ZODB Mount Point %s: %s'
                 raise zc.buildout.UserError(msg % (container_path, str(e)))
@@ -139,4 +143,4 @@ if __name__ == '__main__':
     parser.add_option("-M", "--add-mountpoint", dest="add_mountpoint", default="/sapl/sapl_documentos")
 
     parser.add_option("--log-level", dest="log_level", default='20')
-    main(app, parser) # NOQA
+    main(app, parser)

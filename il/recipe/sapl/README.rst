@@ -3,59 +3,35 @@ Supported options
 
 The recipe supports the following options:
 
-.. Note to recipe author!
-   ----------------------
-   For each option the recipe uses you should include a description
-   about the purpose of the option, the format and semantics of the
-   values it accepts, whether it is mandatory or optional and what the
-   default value is if it is omitted.
+sapl-id
+    The id of the SAPL that the script will create.
+    Default: sapl
 
-option1
-    Description for ``option1``...
+admin-user
+    The id of an admin user that will be used as the ``Manager``.
+    Default: ``admin``
 
-option2
-    Description for ``option2``...
+container-path
+    The path (relative from Zope root) to the container that should hold sapl_documentos.
+    It's important to inform the full path, including the SAPL container.
+    Default: ``/sapl/sapl_documentos``
 
+mysql-user
+    The user of an admin user that will be used to create the database, tables and SAPL MySQL user.
+    Default: ``root``
 
-Example usage
-=============
+mysql-pass
+    The password of mysql-user.
+    Default: ``root``
 
-.. Note to recipe author!
-   ----------------------
-   zc.buildout provides a nice testing environment which makes it
-   relatively easy to write doctests that both demonstrate the use of
-   the recipe and test it.
-   You can find examples of recipe doctests from the PyPI, e.g.
-   
-     http://pypi.python.org/pypi/zc.recipe.egg
+mysql-host
+    The mysql host
+    Default: ``localhost``
 
-   The PyPI page for zc.buildout contains documentation about the test
-   environment.
+mysql-db
+    The mysql database name that will be created. If database name is different
+    than the default name, it's necessary to change it in the MySQL connector.
+    Default: ``interlet``
 
-     http://pypi.python.org/pypi/zc.buildout#testing-support
-
-   Below is a skeleton doctest that you can start with when building
-   your own tests.
-
-We'll start by creating a buildout that uses the recipe::
-
-    >>> write('buildout.cfg',
-    ... """
-    ... [buildout]
-    ... parts = test1
-    ...
-    ... [test1]
-    ... recipe = il.recipe.sapl
-    ... option1 = %(foo)s
-    ... option2 = %(bar)s
-    ... """ % { 'foo' : 'value1', 'bar' : 'value2'})
-
-Running the buildout gives us::
-
-    >>> print 'start', system(buildout) 
-    start...
-    Installing test1.
-    Unused options for test1: 'option2' 'option1'.
-    <BLANKLINE>
-
-
+add-mountpoint
+    Adds the ZODB Mount Point at the path specified by ``container-path``
