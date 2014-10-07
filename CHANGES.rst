@@ -1,4 +1,4 @@
-1.0a1 (Unreleased)
+1.0a1 (2014-10-07)
 ==================
 
 - Estrutura inicial
