@@ -17,7 +17,7 @@ long_description = (
     'Detailed Documentation\n'
     '**********************\n'
     + '\n' +
-    read('il', 'recipe', 'sapl', 'README.rst')
+    read('interlegis', 'recipe', 'sapl', 'README.rst')
     + '\n' +
     'Contributors\n'
     '************\n'
@@ -39,7 +39,7 @@ tests_require = ['zope.testing', 'zc.buildout']
 
 setup(name='interlegis.recipe.sapl',
     version=version,
-    description="",
+    description="Recipe to create SAPL as part of a buildout run",
     long_description=long_description,
     # Get more strings from
     # http://pypi.python.org/pypi?:action=list_classifiers
