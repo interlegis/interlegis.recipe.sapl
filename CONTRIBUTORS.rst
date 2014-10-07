@@ -1,2 +1,2 @@
-- Gustavo Lepri [lepri], Autor
+- Gustavo Lepri [lepri], Author
 

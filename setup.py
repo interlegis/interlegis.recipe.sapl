@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-This module contains the tool of il.recipe.sapl
+This module contains the tool of interlegis.recipe.sapl
 """
 import os
 from setuptools import setup, find_packages
@@ -32,12 +32,12 @@ long_description = (
     'Download\n'
     '********\n')
 
-entry_point = 'il.recipe.sapl:Recipe'
+entry_point = 'interlegis.recipe.sapl:Recipe'
 entry_points = {"zc.buildout": ["default = %s" % entry_point]}
 
 tests_require = ['zope.testing', 'zc.buildout']
 
-setup(name='il.recipe.sapl',
+setup(name='interlegis.recipe.sapl',
     version=version,
     description="",
     long_description=long_description,
@@ -50,13 +50,13 @@ setup(name='il.recipe.sapl',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'License :: OSI Approved :: Zope Public License',
         ],
-    keywords='sapl interelgis buildout recipe',
+    keywords='sapl interlegis buildout recipe',
     author='Gustavo Lepri',
     author_email='gustavolepri@gmail.com',
-    url='https://github.com/interlegis/il.recipe.sapl',
+    url='https://github.com/interlegis/interlegis.recipe.sapl',
     license='ZPL',
     packages=find_packages(exclude=['ez_setup']),
-    namespace_packages=['il', 'il.recipe'],
+    namespace_packages=['interlegis', 'interlegis.recipe'],
     include_package_data=True,
     zip_safe=False,
     install_requires=[
@@ -66,6 +66,6 @@ setup(name='il.recipe.sapl',
     ],
     tests_require=tests_require,
     extras_require=dict(tests=tests_require),
-    test_suite='il.recipe.sapl.tests.test_docs.test_suite',
+    test_suite='interlegis.recipe.sapl.tests.test_docs.test_suite',
     entry_points=entry_points,
 )

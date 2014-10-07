@@ -17,7 +17,7 @@ import pkg_resources
 
 from subprocess import Popen, PIPE
 
-logger = logging.getLogger('il.recipe.sapl')
+logger = logging.getLogger('interlegis.recipe.sapl')
 
 
 def create(container, sapl_id):
