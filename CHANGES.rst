@@ -1,4 +1,4 @@
-1.0a2 (unreleased)
+1.0a2 (2014-10-30)
 ==================
 
 - Nothing changed yet.
