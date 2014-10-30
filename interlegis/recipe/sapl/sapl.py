@@ -31,11 +31,11 @@ def create(container, sapl_id):
         created = True
         factory = container.manage_addProduct['il.sapl']
         factory.manage_addSAPL(sapl_id, title='SAPL-Sistema de Apoio ao Processo Legislativo', database="MySQL")
-    transaction.commit()
-    logger.info("Added SAPL")
-    sapl = getattr(container, sapl_id)
-    setSite(sapl)
-    return (sapl, created)
+        transaction.commit()
+        logger.info("Added SAPL")
+        sapl = getattr(container, sapl_id)
+        setSite(sapl)
+        return (sapl, created)
 
 
 def main(app, parser):
