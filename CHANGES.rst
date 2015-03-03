@@ -1,4 +1,4 @@
-1.0a3 (unreleased)
+1.0a3 (2015-03-03)
 ==================
 
 - Verificação da existência da base do SAPL para evitar drop das tabeleas
