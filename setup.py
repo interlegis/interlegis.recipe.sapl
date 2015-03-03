@@ -17,8 +17,6 @@ long_description = (
     'Detailed Documentation\n'
     '**********************\n'
     + '\n' +
-    read('interlegis', 'recipe', 'sapl', 'README.rst')
-    + '\n' +
     'Contributors\n'
     '************\n'
     + '\n' +
