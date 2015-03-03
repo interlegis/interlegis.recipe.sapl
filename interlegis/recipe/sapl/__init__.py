@@ -4,6 +4,7 @@
 import os
 import subprocess
 import pkg_resources
+import logging
 
 TRUISMS = ['yes', 'y', 'on', 'true', 'sure', 'ok', '1']
 
@@ -13,6 +14,7 @@ class Recipe(object):
 
     def __init__(self, buildout, name, options):
         self.buildout, self.name, self.options = buildout, name, options
+        self.logger = logging.getLogger(name)
 
         options['location'] = os.path.join(
             buildout['buildout']['parts-directory'],

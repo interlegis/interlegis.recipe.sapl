@@ -76,20 +76,25 @@ def main(app, parser):
 
         try:
             db.select_db(mysql_db)
+            created = True
         except:
             cursor.execute(sapl_create)
             db.select_db(mysql_db)
+            created = False
         logger.info("Database created")
 
-        # create SAPL user
-        sapl_dbuser = "GRANT ALL PRIVILEGES ON interlegis.* TO 'sapl'@'localhost' IDENTIFIED BY 'sapl';"
-        cursor.execute(sapl_dbuser)
-        logger.info("MySQL user created")
+        if not created:
+            # create SAPL user
+            sapl_dbuser = "GRANT ALL PRIVILEGES ON interlegis.* TO 'sapl'@'localhost' IDENTIFIED BY 'sapl';"
+            cursor.execute(sapl_dbuser)
+            logger.info("MySQL user created")
 
-        sapl_sql = pkg_resources.resource_filename('il.sapl', 'instalacao/sapl.sql')
-        process = Popen("mysql %s -u%s -p%s -h %s" % (mysql_db, mysql_user, mysql_pass, mysql_host), stdout=PIPE, stdin=PIPE, shell=True)
-        process.communicate('source ' + sapl_sql)[0]
-        logger.info("Tables created")
+            sapl_sql = pkg_resources.resource_filename('il.sapl', 'instalacao/sapl.sql')
+            process = Popen("mysql %s -u%s -p%s -h %s" % (mysql_db, mysql_user, mysql_pass, mysql_host), stdout=PIPE, stdin=PIPE, shell=True)
+            process.communicate('source ' + sapl_sql)[0]
+            logger.info("Tables created")
+        else:
+            logger.info("Tables already created")
 
     # set up security manager
     acl_users = app.acl_users
